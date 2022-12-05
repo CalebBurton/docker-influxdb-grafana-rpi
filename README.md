@@ -67,3 +67,48 @@ Open <http://localhost:3004>
 ```sh
 docker exec -it <CONTAINER_ID> bash
 ```
+
+## Backups
+
+Adapted from <https://crycode.de/nextcloud-client-auf-dem-raspberry-pi>
+
+1. Create a file at `~/.netrc` with the contents
+
+  ```txt
+  machine YOUR_NEXTCLOUD_SERVER_HERE
+          login YOUR_USERNAME_HERE
+          password YOUR_PASSWORD_HERE
+  ```
+
+2. Change the ownership with `chmod 0600 ~/.netrc`
+3. Modify `./cloud-sync.sh` with the path where you're storing the data
+4. Run it daily with chrontab. Run `crontab -e` and add the following:
+
+  ```sh
+  # [...]
+  # Run the sync script daily at 4am
+  0 4 * * * /home/pi/cloud-sync.sh >/dev/null &
+  ```
+
+5. The result of the synchronization can be viewed in the log file described in `./cloud-sync.sh`. So that the log file can also be written by the user `pi`, we have to create it first and adjust the rights accordingly:
+
+  ```sh
+  sudo touch path/to/logfile.log
+  sudo chown pi:pi path/to/logfile.log
+  ```
+
+6. So that the log file doesn't become infinitely large, create a logrotate configuration for this file. Create a file at `/etc/logrotate.d/cloud-sync` and edit it with the following contents:
+
+  ```sh
+path/to/logfile.log {
+  weekly
+  missingok
+  rotate 4
+  compress
+  delaycompress
+  notifempty
+  create 640 pi pi
+}
+  ```
+
+  This rotates the logs into a new file once a week, keeping the the last four copies.
