@@ -16,12 +16,6 @@ directory paths as needed, and run `docker compose up`.
 | 3004 | 8083      | chronograf |
 | 8086 | 8086      | influxdb   |
 
-## SSH
-
-```sh
-docker exec -it <CONTAINER_ID> bash
-```
-
 ## Grafana
 
 Open <http://localhost:3003>
@@ -59,13 +53,17 @@ You can still access Grafana without enabling HTTPs by accessing the host IP/nam
 
 Open <http://localhost:3004>
 
-```txt
-Username: root
-Password: root
-Port: 8086
-```
+- Username: `root`
+- Password: `root`
+- Port: `8086`
 
 ### InfluxDB Shell (CLI)
 
-1. Establish a ssh connection with the container
+1. Establish a ssh connection with the container (see below)
 2. Launch `influx` to open InfluxDB Shell (CLI)
+
+## SSH
+
+```sh
+docker exec -it <CONTAINER_ID> bash
+```
