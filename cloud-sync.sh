@@ -8,7 +8,7 @@ PARAMS="--non-interactive -n -h"
 
 LOG=/home/pi/Desktop/logs/cloud-sync.log
 
-if [ $(pgrep -x nextcloudcmd) ]; then
+if [ "$(pgrep -x nextcloudcmd)" ]; then
   echo "====================" | tee -a $LOG
   date -R | tee -a $LOG
   echo "Cloud sync is already running!" | tee -a $LOG
@@ -22,7 +22,7 @@ echo "Cloud sync started" | tee -a $LOG
 echo "====================" | tee -a $LOG
 
 # Actually run the synchronization
-nextcloudcmd $PARAMS $LOCAL $REMOTE 2>&1 | tee -a $LOG
+nextcloudcmd "$PARAMS" $LOCAL $REMOTE 2>&1 | tee -a $LOG
 
 echo "====================" | tee -a $LOG
 date -R | tee -a $LOG
