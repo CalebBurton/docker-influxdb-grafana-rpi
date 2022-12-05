@@ -9,3 +9,4 @@ services:
         volumes:
             - path/to/influx-data:/var/lib/influxdb
             - path/to/grafana-data:/var/lib/grafana
+        restart: unless-stopped
