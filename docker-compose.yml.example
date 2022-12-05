@@ -1,0 +1,11 @@
+version: '2'
+services:
+    influxdb-grafana:
+        build: .
+        ports: # [internal container port]:[exposed host port]
+            - "3003:3003" # grafana
+            - "3004:8083" # chronograf (influxdb web interface)
+            - "8086:8086" # influxdb
+        volumes:
+            - path/to/influx-data:/var/lib/influxdb
+            - path/to/grafana-data:/var/lib/grafana
