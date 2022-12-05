@@ -1,6 +1,7 @@
 version: '2'
 services:
     influxdb-grafana:
+        container_name: influxdb-grafana
         build: .
         ports: # [internal container port]:[exposed host port]
             - "3003:3003" # grafana
