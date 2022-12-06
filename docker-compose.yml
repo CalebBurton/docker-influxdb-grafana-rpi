@@ -16,8 +16,8 @@ services:
         volumes:
             - "${BACKUP_DIR}/grafana-data:/var/lib/grafana:rw"
             - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:rw
-            - ./config/ssl/cert.pem:/var/lib/grafana/ssl/cert.pem:ro"
-            - ./config/ssl/key.pem:/var/lib/grafana/ssl/key.pem:ro"
+            # - ./config/ssl/cert.pem:/var/lib/grafana/ssl/cert.pem:ro"
+            # - ./config/ssl/key.pem:/var/lib/grafana/ssl/key.pem:ro"
         env_file:
             - ./config/grafana/grafana.env
         ports: # [internal container port]:[exposed host port]
