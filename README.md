@@ -50,8 +50,8 @@ different IP addresses/hosts in your local network, you must use HTTPs with
 this container. If you don't, you are unable to login to Grafana when accessing
 Grafana from a `panel_iframe`.
 
-You can still access Grafana without enabling HTTPs by accessing the host
-IP/name directly in your browser (ie not in an iFrame).
+Generate a self-signed IP certificate by running the
+`./generate-self-signed-ip-cert.sh` script.
 
 ## InfluxDB
 
