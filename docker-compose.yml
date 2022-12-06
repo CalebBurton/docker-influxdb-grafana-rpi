@@ -26,5 +26,5 @@ services:
         env_file:
             - ./config/grafana/grafana.env
         ports: # [internal container port]:[exposed host port]
-            - "3000:3000"
+            - "3003:3003"
         restart: unless-stopped
