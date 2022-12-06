@@ -6,9 +6,9 @@ services:
         volumes:
             # For initial upgrade from v1
             - ./config/influxdb/influxdb.conf:/home/influxdb/.influxdb1/config.conf:ro
-            - path/to/influxv1-data:/var/lib/influxdb:rw
+            - "${BACKUP_DIR}/influxv1-data:/var/lib/influxdb:rw"
             # # Persistent database data
-            # - path/to/influx2-data:/var/lib/influxdb2:rw
+            # "- ${BACKUP_DIR}/influxv2-data:/var/lib/influxdb2:rw"
             # # Configuration file(s)
             # - ./config/influxdb/config.toml:/home/influxdb/.influxdbv2/configs/config.toml:rw
         env_file:
@@ -20,8 +20,8 @@ services:
         container_name: grafana
         image: grafana/grafana-oss:9.3.1
         volumes:
-            - path/to/grafana-data:/var/lib/grafana:rw
-            - path/to/grafana-logs:/var/log/grafana:rw
+            - "${BACKUP_DIR}/grafana-data:/var/lib/grafana:rw"
+            - ./logs/grafana:/var/log/grafana:rw
         ports: # [internal container port]:[exposed host port]
             - "3000:3000"
         restart: unless-stopped
