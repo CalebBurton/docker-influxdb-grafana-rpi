@@ -21,7 +21,10 @@ services:
         image: grafana/grafana-oss:9.3.1
         volumes:
             - "${BACKUP_DIR}/grafana-data:/var/lib/grafana:rw"
+            - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:rw
             # - ./logs/grafana:/var/log/grafana:rw
+        env_file:
+            - ./config/grafana/grafana.env
         ports: # [internal container port]:[exposed host port]
             - "3000:3000"
         restart: unless-stopped
