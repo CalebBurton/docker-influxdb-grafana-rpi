@@ -1,13 +1,27 @@
-version: '2'
+version: '3'
 services:
-    influxdb-grafana:
-        container_name: influxdb-grafana
-        build: .
-        ports: # [internal container port]:[exposed host port]
-            - "3003:3003" # grafana
-            - "3004:8083" # chronograf (influxdb web interface)
-            - "8086:8086" # influxdb
+    influxdb:
+        container_name: influxdb
+        image: influxdb:2.5.1
         volumes:
-            - path/to/influx-data:/var/lib/influxdb
-            - path/to/grafana-data:/var/lib/grafana
+            # For initial upgrade from v1
+            - ./config/influxdb/influxdb.conf:/home/influxdb/.influxdb1/config.conf:ro
+            - path/to/influxv1-data:/var/lib/influxdb:rw
+            # # Persistent database data
+            # - path/to/influx2-data:/var/lib/influxdb2:rw
+            # # Configuration file(s)
+            # - ./config/influxdb/config.toml:/home/influxdb/.influxdbv2/configs/config.toml:rw
+        env_file:
+            - ./config/influxdb/influxdb.env
+        ports: # [internal container port]:[exposed host port]
+            - "8086:8086"
+        restart: unless-stopped
+    grafana:
+        container_name: grafana
+        image: grafana/grafana-oss:9.3.1
+        volumes:
+            - path/to/grafana-data:/var/lib/grafana:rw
+            - path/to/grafana-logs:/var/log/grafana:rw
+        ports: # [internal container port]:[exposed host port]
+            - "3000:3000"
         restart: unless-stopped
