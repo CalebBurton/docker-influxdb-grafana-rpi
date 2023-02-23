@@ -57,8 +57,34 @@ Generate a self-signed IP certificate by running the
 
 ### InfluxDB Shell (CLI)
 
+From the machine running the docker container:
+
 ```sh
 docker exec -it influxdb influx
+```
+
+From remote machines, use the influxdb-cli tool (`brew install influxdb-cli`).
+[Reference docs](https://docs.influxdata.com/influxdb/cloud/tools/influx-cli/).
+
+```sh
+influx config create --config-name <config-name> \
+  --host-url http://example.com:8086 \
+  --org <your-org> \
+  --token <your-auth-token> \
+  --active
+
+influx ping
+influx query "QUERY"
+```
+
+Once you're in, use the influxdb query language.
+[Reference](https://docs.influxdata.com/influxdb/v1.8/query_language/explore-schema/).
+
+```influxdb
+show databases
+use DATABASE_NAME
+show measurements
+select * from "MEASUREMENT" where time > 'TIMESTAMP'
 ```
 
 ## Backups
@@ -75,7 +101,7 @@ Adapted from <https://crycode.de/nextcloud-client-auf-dem-raspberry-pi>
 
 2. Change the ownership with `chmod 0600 ~/.netrc`
 3. Modify `./cloud-sync.sh` with the path where you're storing the data
-4. Run it daily with chrontab. Run `crontab -e` and add the following:
+4. Run it daily with crontab. Run `crontab -e` and add the following:
 
   ```sh
   # [...]

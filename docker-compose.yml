@@ -5,6 +5,8 @@ services:
         image: influxdb:1.8
         volumes:
             - "${BACKUP_DIR}/influx-data:/var/lib/influxdb:rw"
+            # - ./config/ssl/cert.pem:/var/lib/influxdb/ssl/cert.pem:ro"
+            # - ./config/ssl/key.pem:/var/lib/influxdb/ssl/key.pem:ro"
         env_file:
             - ./config/influxdb/influxdb.env
         ports: # [internal container port]:[exposed host port]
