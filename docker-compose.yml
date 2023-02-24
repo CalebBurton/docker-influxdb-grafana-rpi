@@ -1,29 +1,29 @@
-version: '3'
+version: "3"
 services:
     influxdb:
-        container_name: influxdb
-        image: influxdb:1.8
+        container_name: "influxdb"
+        image: "influxdb:1.8"
         user: "${INFLUXDB_USER_ID}"
         volumes:
             - "${BACKUP_DIR}/influx-data:/var/lib/influxdb:rw"
-            # - ./config/ssl/cert.pem:/var/lib/influxdb/ssl/cert.pem:ro"
-            # - ./config/ssl/key.pem:/var/lib/influxdb/ssl/key.pem:ro"
+            # - "./config/ssl/cert.pem:/var/lib/influxdb/ssl/cert.pem:ro"
+            # - "./config/ssl/key.pem:/var/lib/influxdb/ssl/key.pem:ro"
         env_file:
-            - ./config/influxdb/influxdb.env
+            - "./config/influxdb/influxdb.env"
         ports: # [internal container port]:[exposed host port]
             - "8086:8086"
-        restart: unless-stopped
+        restart: "unless-stopped"
     grafana:
-        container_name: grafana
-        image: grafana/grafana-oss:9.3.1
+        container_name: "grafana"
+        image: "grafana/grafana-oss:9.3.1"
         user: "${GRAFANA_USER_ID}"
         volumes:
             - "${BACKUP_DIR}/grafana-data:/var/lib/grafana:rw"
-            - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:rw
-            - ./config/ssl/cert.pem:/var/lib/grafana/ssl/cert.pem:ro"
-            - ./config/ssl/key.pem:/var/lib/grafana/ssl/key.pem:ro"
+            - "./config/grafana/grafana.ini:/etc/grafana/grafana.ini:rw"
+            - "./config/ssl/cert.pem:/var/lib/grafana/ssl/cert.pem:ro"
+            - "./config/ssl/key.pem:/var/lib/grafana/ssl/key.pem:ro"
         env_file:
-            - ./config/grafana/grafana.env
+            - "./config/grafana/grafana.env"
         ports: # [internal container port]:[exposed host port]
             - "3003:3003"
-        restart: unless-stopped
+        restart: "unless-stopped"
