@@ -3,9 +3,10 @@ services:
     influxdb:
         container_name: "influxdb"
         image: "influxdb:1.8"
-        user: "${INFLUXDB_USER_ID}"
+        #user: "${INFLUXDB_USER_ID}"
         volumes:
             - "${BACKUP_DIR}/influx-data:/var/lib/influxdb:rw"
+            - "./config/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:rw"
             # - "./config/ssl/cert.pem:/var/lib/influxdb/ssl/cert.pem:ro"
             # - "./config/ssl/key.pem:/var/lib/influxdb/ssl/key.pem:ro"
         env_file:
@@ -16,7 +17,7 @@ services:
     grafana:
         container_name: "grafana"
         image: "grafana/grafana-oss:9.3.1"
-        user: "${GRAFANA_USER_ID}"
+        # user: "${GRAFANA_USER_ID}"
         volumes:
             - "${BACKUP_DIR}/grafana-data:/var/lib/grafana:rw"
             - "./config/grafana/grafana.ini:/etc/grafana/grafana.ini:rw"
