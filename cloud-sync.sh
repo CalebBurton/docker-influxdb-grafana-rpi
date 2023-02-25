@@ -1,6 +1,11 @@
 #!/bin/bash
+set -Eeuo pipefail
 source ./.env
 
+if [[ -z "$BACKUP_DIR" ]]; then
+    echo "Must provide BACKUP_DIR in environment" 1>&2
+    exit 1
+fi
 if [[ -z "$ZIP_DIR" ]]; then
     echo "Must provide ZIP_DIR in environment" 1>&2
     exit 1
@@ -47,7 +52,7 @@ echo "====================" | tee -a "$LOG_PATH"
 # -q: quiet
 # -r: recurse subdirectories
 # -s 1g: split into 1GB pieces
-zip -9 -q -r -s 1g "$ZIP_DIR"/"$ZIP_FILE_NAME" "$LOCAL"
+zip -9 -q -r -s 1g "$ZIP_DIR/$ZIP_FILE_NAME" "$BACKUP_DIR"
 
 echo "====================" | tee -a "$LOG_PATH"
 date -R | tee -a "$LOG_PATH"
