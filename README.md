@@ -37,6 +37,7 @@ id -nG # confirm "docker" is one of the groups
 # Configure git
 git config --global user.email "EMAIL@EXAMPLE.COM"
 git config --global user.name "FIRST LAST"
+git config pull.ff only
 
 # Make an SSH key and copy it to your clipboard
 ssh-keygen
@@ -160,7 +161,22 @@ Adapted from <https://crycode.de/nextcloud-client-auf-dem-raspberry-pi>
 1. Install the Nextcloud command line tool
 
   ```sh
-  sudo apt update && sudo apt install -y nextcloud-desktop-cmd
+  # Install the sync dependency package
+  wget http://ftp.de.debian.org/debian/pool/main/n/nextcloud-desktop/libnextcloudsync0_3.1.1-2+deb11u1_armhf.deb
+  sudo dpkg -i libnextcloudsync0_3.1.1-2+deb11u1_armhf.deb
+  sudo apt install --fix-broken -y
+
+  # Install the command line client
+  wget http://ftp.de.debian.org/debian/pool/main/n/nextcloud-desktop/nextcloud-desktop-cmd_3.1.1-2+deb11u1_armhf.deb
+  sudo dpkg -i nextcloud-desktop-cmd_3.1.1-2+deb11u1_armhf.deb
+  sudo apt install --fix-broken -y
+
+  # # In theory you should just be able to run the following lines, as per
+  # # https://docs.nextcloud.com/desktop/3.6/nextcloudcmd.html,
+  # # but it doesn't work on Raspbian yet (only mainline Debian)
+  # sudo add-apt-repository ppa:nextcloud-devs/client
+  # sudo apt update
+  # sudo apt install nextcloud-client
   ```
 
 1. Create a file at `~/.netrc` with the contents
