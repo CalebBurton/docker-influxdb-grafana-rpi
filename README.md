@@ -154,6 +154,23 @@ show measurements
 select * from "MEASUREMENT" where time > TIMESTAMP
 ```
 
+## Backfilling Data
+
+1. Using the `SQLite Web` add-on for Home Assistant, export the desired data as
+a CSV file. For example:
+
+  ```sql
+  -- Note that hass uses `s.ms` for timestamps while influxdb uses `ns`
+  SELECT *
+  FROM states
+  WHERE entity_id = 'sensor.lumi_lumi_weather_temperature'
+  AND last_updated_ts > 1676847600.000000
+  AND last_updated_ts < 1677265200.000000
+  ```
+
+1. Using `./backfill.py` as a starting point, import the data into influxdb
+
+
 ## Backups
 
 Adapted from <https://crycode.de/nextcloud-client-auf-dem-raspberry-pi>
