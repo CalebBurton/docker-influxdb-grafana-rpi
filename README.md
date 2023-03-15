@@ -67,11 +67,14 @@ sudo blkid
 # Add it to fstab
 sudo vi /etc/fstab
 # The file should look something like this:
-#####################################################################
+###############################################################################
 # # device-spec   mount-point     fs-type options           dump pass
 # [...]
-# /dev/sdc1      /media/pi/usb auto uid=pi,gid=pi,umask=0000 0    0
-#####################################################################
+# /dev/sda1      /media/pi/usb auto nofail,uid=pi,gid=pi,umask=0000 0    0
+###############################################################################
+#
+# WARNING: don't mess with any of the stuff that's already in there. You could
+# break your root partition's mount settings and be unable to boot.
 ```
 
 ## Quick Start
@@ -160,7 +163,7 @@ select * from "MEASUREMENT" where time > TIMESTAMP
 a CSV file. For example:
 
   ```sql
-  -- Note that hass uses `s.ms` for timestamps while influxdb uses `ns`
+  -- Note that hass uses `second.ms` for timestamps while influxdb uses `ns`
   SELECT *
   FROM states
   WHERE entity_id = 'sensor.lumi_lumi_weather_temperature'
