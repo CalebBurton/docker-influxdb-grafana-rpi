@@ -48,11 +48,12 @@ echo "====================" | tee -a "$LOG_PATH"
 
 # Zip up the files to avoid sync conflicts
 
+# sudo: some of the grafana files are only readable by root
 # -9: highest compression level
 # -q: quiet
 # -r: recurse subdirectories
 # -s 1g: split into 1GB pieces
-zip -9 -q -r -s 1g "$ZIP_DIR/$ZIP_FILE_NAME" "$BACKUP_DIR"
+sudo zip -9 -q -r -s 1g "$ZIP_DIR/$ZIP_FILE_NAME" "$BACKUP_DIR"
 
 echo "====================" | tee -a "$LOG_PATH"
 date -R | tee -a "$LOG_PATH"

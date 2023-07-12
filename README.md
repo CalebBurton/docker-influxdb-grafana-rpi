@@ -96,7 +96,7 @@ Open <http://localhost:3003>
 2. Select InfluxDB
 3. Leave everything as the default, with the following updates:
   - HTTP
-      - url: `http://localhost:8086`
+      - url: `http://influxdb:8086`
   - InfluxDB Details
       - database: `_internal`
       - user: `root`
@@ -132,6 +132,8 @@ From the machine running the docker container:
 docker exec -it influxdb influx
 ```
 
+**PENDING**: the remote CLI tool only works with the influx v2 API
+<!--
 From remote machines, use the influxdb-cli tool (`brew install influxdb-cli`).
 [Reference docs](https://docs.influxdata.com/influxdb/cloud/tools/influx-cli/).
 
@@ -145,6 +147,7 @@ influx config create --config-name <config-name> \
 influx ping
 influx query "QUERY"
 ```
+-->
 
 Once you're in, use the influxdb query language.
 [Reference](https://docs.influxdata.com/influxdb/v1.8/query_language/explore-schema/).
