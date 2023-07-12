@@ -166,12 +166,13 @@ select * from "MEASUREMENT" where time > TIMESTAMP
 a CSV file. For example:
 
   ```sql
-  -- Note that hass uses `second.ms` for timestamps while influxdb uses `ns`
-  SELECT *
-  FROM states
-  WHERE entity_id = 'sensor.lumi_lumi_weather_temperature'
-  AND last_updated_ts > 1676847600.000000
-  AND last_updated_ts < 1677265200.000000
+  -- Note that HA uses `second.ms` for timestamps while influxdb uses `ns`
+  SELECT s.last_updated_ts, s.state
+  FROM states AS s
+  JOIN states_meta AS sm ON s.metadata_id = sm.metadata_id
+  WHERE sm.entity_id = 'sensor.lumi_lumi_weather_temperature'
+  AND s.last_updated_ts > 1676847600.000000
+  AND s.last_updated_ts < 1689182200.000000
   ```
 
 1. Using `./backfill.py` as a starting point, import the data into influxdb
