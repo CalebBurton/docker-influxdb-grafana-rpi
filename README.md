@@ -218,7 +218,7 @@ Adapted from <https://crycode.de/nextcloud-client-auf-dem-raspberry-pi>
   ```sh
   # [...]
   # Run the sync script daily at 4am
-  0 4 * * * /home/pi/cloud-sync.sh >/dev/null &
+  0 4 * * * /path/to/cloud-sync.sh >/dev/null &
   ```
 
 1. The result of the synchronization can be viewed in the log file described in
