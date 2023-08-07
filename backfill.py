@@ -34,13 +34,13 @@ csvReader = pd.read_csv(file_path)
 print(f'Input shape (rows, columns): {csvReader.shape}')
 print(f'Input column names: {csvReader.columns}')
 
-print(f'=============================================')
-print(f'Row Index\tTimestamp\t\tState')
-print(f'=============================================')
+print(f'===============================================')
+print(f'Row Index  Timestamp                      State')
+print(f'===============================================')
 for row_index, row in csvReader.iterrows() :
     timestamp = pd.to_datetime(row[0], unit='s')
     state = row[1]
-    print(f'Row {row_index:04}:\t{timestamp}\t{state}')
+    print(f'Row {row_index:04}:  {timestamp}  {state}')
 
     # It will probably take some trial and error to determine which data points
     # are "tags" and which are "fields", so make sure to do some test runs.
